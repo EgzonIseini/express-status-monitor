@@ -14,7 +14,14 @@ function allSettled (promises) {
 }
 
 function getEndpoint (healthCheck) {
-  return `${healthCheck.protocol}://${healthCheck.host}:${healthCheck.port}${healthCheck.path}`
+  let uri = `${healthCheck.protocol}://${healthCheck.host}`;
+
+  if (healthCheck.port) {
+    uri += `:${healthCheck.port}`;
+  }
+
+  uri += healthCheck.path;
+  return uri
 }
 
 
@@ -41,18 +48,18 @@ module.exports = async healthChecks => {
 
   return allSettled(checkPromises).then(results => {
     results.forEach((result, index) => {
-      const endpoint = getEndpoint(healthChecks[index])
+      const fullPath = getEndpoint(healthChecks[index])
 
       if (result.state === 'rejected') {
         checkResults.push({
           path: healthChecks[index].path,
-          endpoint,
+          endpoint: fullPath,
           status: 'failed'
         });
       } else {
         checkResults.push({
           path: healthChecks[index].path,
-          endpoint,
+          endpoint: fullPath,
           status: 'ok'
         });
       }
