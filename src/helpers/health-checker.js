@@ -54,12 +54,14 @@ module.exports = async healthChecks => {
       if (result.state === 'rejected') {
         checkResults.push({
           path: healthChecks[index].path,
+          alias: healthChecks[index].alias,
           endpoint: fullPath,
           status: 'failed'
         });
       } else {
         checkResults.push({
           path: healthChecks[index].path,
+          alias: healthChecks[index].alias,
           endpoint: fullPath,
           status: 'ok'
         });

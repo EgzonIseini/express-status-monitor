@@ -86,8 +86,12 @@ canvas {
 .health-check-title-column {
   flex: 0 0 400px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: 0 10px;
+}
+
+.health-check-title-column h4 {
+  margin: 0.5em 0;
 }
 
 .health-check-title-column h5 a {
