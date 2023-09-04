@@ -40,7 +40,8 @@ module.exports = async healthChecks => {
     checkPromises.push(axios({
       url: uri,
       method: 'GET',
-      timeout: 10000
+      timeout: 10000,
+      headers: healthCheck.headers
     }));
   });
 
